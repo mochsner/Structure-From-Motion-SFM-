@@ -120,17 +120,17 @@ if __name__ == "__main__":
 
             retval, R, t, mask = cv.recoverPose(E, pts1, pts2, K)
             
-            print("I+0 \n" + str(R_t_0))
+            print("I+0 \n" + str(R_t_0))  # print itentity matrix
 
-            print("Mullllllllllllll \n" + str(np.matmul(R, R_t_0[:3,:3])))
+            print("Mullllllllllllll \n" + str(np.matmul(R, R_t_0[:3,:3])))  # 
 
             R_t_1[:3,:3] = np.matmul(R, R_t_0[:3,:3])
             R_t_1[:3, 3] = R_t_0[:3, 3] + np.matmul(R_t_0[:3,:3],t.ravel())
 
             print("The R_t_0 \n" + str(R_t_0))
-            print("The R_t_1 \n" + str(R_t_1))
+            print("The R_t_1 \n" + str(R_t_1)) # the pose of the current camera in world space ? 1st col = rotation, location = last 2 columns
 
-            P2 = np.matmul(K, R_t_1)
+            P2 = np.matmul(K, R_t_1) # line 133 in cameraTransforms (computes 'projection', which is K * R_t_1) where R_t_1 = concatenation of rotation/location
 
             print("The projection matrix 1 \n" + str(P1))
             print("The projection matrix 2 \n" + str(P2))
